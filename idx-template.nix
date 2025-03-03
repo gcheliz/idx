@@ -1,4 +1,9 @@
 { pkgs }:
+let
+  nixpkgsConfig = {
+    allowUnfree = true;
+  };
+in
 {
   packages = [
     pkgs.php82
