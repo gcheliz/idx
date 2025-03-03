@@ -1,11 +1,12 @@
 nix
-{ pkgs, ... }:
-
-let
-  customShell = pkgs.writeShellScript "custom-shell" '' 
+{
+  pkgs,
+  ...
+}: let
+  customShell = pkgs.writeShellScript "custom-shell" ''
     #!/usr/bin/env bash
 
-    # Use set -euo pipefail to exit immediately if a command exits with a non-zero status
+    # Use set -euo pipefail to exit immediately if a command exits with a non-zero status.
 
     #Flag to check if we cloned the repo
     cloned_repo=false
@@ -92,25 +93,23 @@ let
 
     echo "Bootstrap finished!"
     sudo systemctl start docker
-  '';
-in
-{
-  packages = [
-    pkgs.php82
-    pkgs.nginx
-    pkgs.mongodb
-    pkgs.redis
-    pkgs.nodejs
-    pkgs.gh
-    pkgs.git
-    pkgs.curl
-    pkgs.docker-compose      
-    pkgs.yarn
-    pkgs.docker
-    pkgs.minikube
-    pkgs.kubectl
-    pkgs.terraform
-    pkgs.kustomize      
-    pkgs.helm
-  ];
-}
+  ''; in {
+    packages = [
+      pkgs.php82
+      pkgs.nginx
+      pkgs.mongodb
+      pkgs.redis
+      pkgs.nodejs
+      pkgs.gh
+      pkgs.git
+      pkgs.curl
+      pkgs.docker-compose
+      pkgs.yarn
+      pkgs.docker
+      pkgs.minikube
+      pkgs.kubectl
+      pkgs.terraform
+      pkgs.kustomize
+      pkgs.helm
+    ];
+  }
