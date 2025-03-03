@@ -90,6 +90,7 @@ let
     fi
 
     echo "Bootstrap finished!"
+    sudo systemctl start docker
   '';
 in
 {
