@@ -1,7 +1,8 @@
 { pkgs }:
 {
   packages = [
-    pkgs.nodejs
+    pkgs.nodejs 
+    pkgs.gh
   ];
 
   bootstrap = ''
