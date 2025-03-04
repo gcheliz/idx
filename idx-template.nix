@@ -1,11 +1,15 @@
 { pkgs }:
 
+let
+  nixpkgsConfig = {
+    allowUnfree = true;
+  };
+in
 {
-  nixpkgs.config.allowUnfree = true;
-
+  nixpkgs.config = nixpkgsConfig;
   packages = [
     pkgs.php82
-    pkgs.nginx    
+    pkgs.nginx
     pkgs.mongodb
     pkgs.redis
     pkgs.git
@@ -23,7 +27,6 @@
   ];
 
   bootstrap = ''
-    export NIXPKGS_ALLOW_UNFREE=1
     set -euo pipefail
 
     echo "Creating holded directory in $HOME"
@@ -47,13 +50,6 @@
       echo "Composer installed"
     else
       echo "Composer already installed."
-    fi
-
-    echo "Starting docker-compose"
-    docker-compose up -d
-    if [ $? -ne 0 ]; then
-      echo "Error starting docker-compose. Exiting."
-      exit 1
     fi
 
     echo "Bootstrap finished!"
