@@ -1,17 +1,11 @@
 { pkgs }:
 
 {
-  packages = pkgs.callPackage ({
-    config = {
-        allowUnfree = true;
-    };
-  }: [
+  packages = [
     pkgs.php82
     pkgs.nginx    
     pkgs.mongodb
     pkgs.redis
-    pkgs.nodejs
-    pkgs.gh
     pkgs.git
     pkgs.curl
     pkgs.docker-compose
@@ -20,8 +14,10 @@
     pkgs.minikube
     pkgs.kubectl
     pkgs.terraform
+    pkgs.nodejs
+    pkgs.gh
     pkgs.kustomize
-    pkgs.helm    
+    pkgs.helm
   ];
 
   bootstrap = ''
