@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 let
+  nixpkgsConfig = {
+    allowUnfree = true;
+  };
   customShell = pkgs.writeShellScript "custom-shell" '' 
     #!/usr/bin/env bash
 
@@ -94,6 +97,7 @@ let
   '';
 in
 {
+  nixpkgs.config = nixpkgsConfig;
   packages = [
     pkgs.php82
     pkgs.nginx
