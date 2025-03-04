@@ -21,6 +21,7 @@
   ];
 
   bootstrap = ''
+    export NIXPKGS_ALLOW_UNFREE=1
     set -euo pipefail
 
     echo "Creating holded directory in $HOME"
