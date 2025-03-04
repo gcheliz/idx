@@ -4,35 +4,10 @@ let
   customShell = pkgs.writeShellScript "custom-shell" '' 
     #!/usr/bin/env bash
 
-
     set -euo pipefail
 
     echo "Creating holded directory in $HOME"
     mkdir -p "$HOME/holded"
-
-    echo "Installing gh"
-    gh auth status || (echo "Authenticating gh" && gh auth login)
-    
-    echo "Installing yarn"
-    if ! command -v yarn &> /dev/null; then
-      echo "yarn not found. Attempting to install..."
-      npm install --global yarn
-      if [ $? -ne 0 ]; then
-        echo "Error installing yarn. Exiting."
-        exit 1
-      fi
-    else
-      echo "Yarn already installed."
-    fi
-
-    if ! command -v composer &> /dev/null; then
-      echo "Composer not found. Attempting to install..."
-      curl -sS https://getcomposer.org/installer | php
-      sudo mv composer.phar /usr/local/bin/composer
-      echo "Composer installed"
-    else
-      echo "Composer already installed."
-    fi
 
     echo "Cloning holded-app repository"
     if [ ! -d "$HOME/holded/holded-app" ]; then
@@ -57,7 +32,7 @@ let
         fi
     fi
 
-    if [ -f "composer.json" ]; then
+    if [ -f "package.json" ]; then
       echo "Installing yarn dependencies"
         yarn install
         if [ $? -ne 0 ]; then
@@ -103,7 +78,7 @@ in
     pkgs.php82Extensions.apcu
     pkgs.php82Extensions.calendar
     pkgs.php82Extensions.curl
-    pkgs.nginxStable
+    pkgs.nginx
     pkgs.mongodb-6_0
     pkgs.redis
     pkgs.nodejs_latest
@@ -121,8 +96,14 @@ in
     pkgs.kubectl
     pkgs.terraform
     pkgs.terraform-docs
-
     pkgs.kustomize
-    pkgs.helm      
+    pkgs.helm
+    pkgs.k9s
+    pkgs.krew
+    pkgs.google-cloud-sdk      
   ];
+  services = {
+    mongodb.enable = true;
+    redis.enable = true;
+  };
 }
