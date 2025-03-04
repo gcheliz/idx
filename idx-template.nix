@@ -1,13 +1,13 @@
 { pkgs }:
-let
-  nixpkgsConfig = {
-    allowUnfree = true;
-  };
-in
+
 {
-  packages = [
+  packages = pkgs.callPackage ({
+    config = {
+        allowUnfree = true;
+    };
+  }: [
     pkgs.php82
-    pkgs.nginx
+    pkgs.nginx    
     pkgs.mongodb
     pkgs.redis
     pkgs.nodejs
@@ -21,7 +21,7 @@ in
     pkgs.kubectl
     pkgs.terraform
     pkgs.kustomize
-    pkgs.helm
+    pkgs.helm    
   ];
 
   bootstrap = ''
