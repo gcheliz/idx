@@ -1,6 +1,8 @@
 { pkgs }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   packages = [
     pkgs.php82
     pkgs.nginx    
